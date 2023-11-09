@@ -1,0 +1,30 @@
+@media (max-width: 700px) {
+  .navBar_list {
+    flex-direction: column;
+  }
+
+  .navBar_list__item {
+    width: 100%;
+    padding: 2%;
+    justify-content: center;
+  }
+}
+
+.navBar {
+  background-color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+}
+
+.navBar_list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.navBar_list__item {
+  display: flex;
+  align-items: center;
+}
