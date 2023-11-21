@@ -1,0 +1,28 @@
+button {
+  display: block;
+  appearance: none;
+  border: 1px solid 333;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  padding: 13px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type='submit'] {
+  background-color: #f18701;
+  color: #f9f9f9;
+  border: none;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 6px;
+  &:hover {
+    background-color: #f35b04;
+  }
+  &:active {
+    transform: translate(1px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
+}

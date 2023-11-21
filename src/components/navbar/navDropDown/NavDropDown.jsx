@@ -1,6 +1,6 @@
 import './NavDropDown.css'
 import { useState } from 'react'
-import Profil from '../../svg/profil.svg'
+import Profil from '../../../svg/profil.svg'
 
 export const NavDropDown = ({ children }) => {
   const [open, setOpen] = useState(false)
