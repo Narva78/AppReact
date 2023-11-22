@@ -1,4 +1,4 @@
-import './Navbar.css'
+import './Navbar.scss'
 import { NavLink } from '../../components/navbar/navLink/NavLink'
 import { NavDropDown } from '../../components/navbar/navDropDown/NavDropDown'
 import { ItemMenu } from '../../components/navbar/navDropDown/itemMenu/ItemMenu'

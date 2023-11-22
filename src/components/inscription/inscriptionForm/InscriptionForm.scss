@@ -1,0 +1,46 @@
+$primaryBorderColor: #fff;
+$primaryFontColor: #f9f9f9;
+$primaryBorderRadius: 5px;
+$inputFontSize: 14px;
+$labelMarginBottom: 10px;
+$inputMarginBottom: 10px;
+$breakpoint: 200px;
+
+.form {
+  background-color: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+
+  &__input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: $primaryBorderRadius;
+    border: 1px solid $primaryBorderColor;
+    padding: 10px 15px;
+    font-size: $inputFontSize;
+
+    @media screen and (max-width: $breakpoint) {
+      width: 100%;
+    }
+  }
+}
+
+label {
+  color: $primaryFontColor;
+  margin-bottom: $labelMarginBottom;
+}
+
+input[type='radio'] {
+  display: inline-block;
+  width: auto;
+  cursor: pointer;
+  margin-bottom: $inputMarginBottom;
+}
+
+input[type='date'] {
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+}

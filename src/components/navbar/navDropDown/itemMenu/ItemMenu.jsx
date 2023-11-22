@@ -1,4 +1,4 @@
-import './ItemMenu.css'
+import './ItemMenu.scss'
 
 export const ItemMenu = ({ href, children }) => {
   return (

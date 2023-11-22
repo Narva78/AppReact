@@ -1,4 +1,4 @@
-import './Test.css'
+import './Test.scss'
 import Inscription from '../inscription/Inscription'
 import Navbar from '../navBar/Navbar'
 

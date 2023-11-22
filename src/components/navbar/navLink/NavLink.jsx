@@ -1,4 +1,4 @@
-import './NavLink.css'
+import './NavLink.scss'
 
 export const NavLink = ({ href, children }) => {
   return (

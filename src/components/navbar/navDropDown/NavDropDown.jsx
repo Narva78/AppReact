@@ -1,4 +1,4 @@
-import './NavDropDown.css'
+import './NavDropDown.scss'
 import { useState } from 'react'
 import Profil from '../../../svg/profil.svg'
 
