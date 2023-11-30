@@ -14,6 +14,7 @@ export const InscriptionForm = forwardRef(
       minlength,
       onChange,
       onInvalid,
+      autoComplete,
       onInput,
       options,
       onBlur,
@@ -69,6 +70,7 @@ export const InscriptionForm = forwardRef(
             placeholder={placeholder}
             maxLength={maxlength}
             minLength={minlength}
+            autoComplete={autoComplete}
             onChange={onChange}
             onInvalid={onInvalid}
             onInput={onInput}

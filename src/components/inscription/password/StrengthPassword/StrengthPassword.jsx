@@ -59,25 +59,25 @@ export const StrengthPassword = ({ password }) => {
         <ul>
           {hasMinLength && (
             <li>
-              <span class="progress__label__checkmark">✔</span> Au moins 8
+              <span className="progress__label__checkmark">✔</span> Au moins 8
               caractères
             </li>
           )}
           {hasUppercase && (
             <li>
-              <span class="progress__label__checkmark">✔</span> Au moins une
+              <span className="progress__label__checkmark">✔</span> Au moins une
               majuscule
             </li>
           )}
           {hasNumber && (
             <li>
-              <span class="progress__label__checkmark">✔</span> Au moins un
+              <span className="progress__label__checkmark">✔</span> Au moins un
               chiffre
             </li>
           )}
           {hasSpecialChar && (
             <li>
-              <span class="progress__label__checkmark">✔</span> Au moins un
+              <span className="progress__label__checkmark">✔</span> Au moins un
               caractère spécial
             </li>
           )}

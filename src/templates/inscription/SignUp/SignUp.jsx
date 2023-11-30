@@ -5,6 +5,7 @@ import { InscriptionForm } from '../../../components/inscription/inscriptionForm
 import { ProgressBar } from '../../../components/inscription/progressBar/ProgressBar'
 import { HelpPassword } from '../../../components/inscription/password/help/HelpPassword'
 import { StrengthPassword } from '../../../components/inscription/password/StrengthPassword/StrengthPassword'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -20,10 +21,13 @@ export const SignUp = () => {
 
   const [communes, setCommunes] = useState([])
   const [error, setError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [password, setPassword] = useState('')
   const confirmPasswordRef = useRef(null)
+
+  const onChange = () => {}
 
   useEffect(() => {
     if (currentStep < 3) {
@@ -31,7 +35,7 @@ export const SignUp = () => {
     }
 
     if (currentStep === 3) {
-      if (formData.password !== formData.confirmPassword) {
+      if (password !== formData.confirmPassword) {
         confirmPasswordRef.current.setCustomValidity(
           'Les mots de passes ne sont pas identiques'
         )
@@ -39,7 +43,17 @@ export const SignUp = () => {
         confirmPasswordRef.current.setCustomValidity('')
       }
     }
-  }, [formData.password, formData.confirmPassword, currentStep])
+  }, [password, formData.confirmPassword, currentStep])
+
+  const validatePassword = (password) => {
+    const validations = {
+      minLength: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      specialChars: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+      number: /\d/.test(password),
+    }
+    return validations
+  }
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -47,27 +61,14 @@ export const SignUp = () => {
 
   const handleCodePostalBlur = async () => {
     try {
-      console.log('Requête API pour le code postal:', formData.codePostal)
       const response = await axios.get(
         `https://geo.api.gouv.fr/communes?codePostal=${formData.codePostal}`
       )
-      console.log("Réponse de l'API:", response.data)
       setCommunes(response.data)
       setError('')
     } catch (error) {
       console.error('Erreur lors de la récupération des communes', error)
       setError('Aucune commune avec ce code postal.')
-    }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData)
-    if (e.currentTarget.checkValidity()) {
-      console.log('Formulaire envoyé avec succès')
-      setIsSubmitted(true)
-    } else {
-      console.log('Le formulaire contient des erreurs')
     }
   }
 
@@ -83,7 +84,46 @@ export const SignUp = () => {
         "Êtes-vous sûr de vouloir revenir à l'étape précédente ? Les données rentrées seront perdues."
       )
     ) {
+      if (currentStep === 2) {
+        setFormData({ ...formData, birthday: '' })
+      }
+
+      if (currentStep === 3) {
+        setPasswordError('')
+      }
+
       setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const passwordValidations = validatePassword(password)
+    console.log(passwordValidations)
+    console.log(formData)
+
+    const allValid = Object.values(passwordValidations).every(Boolean)
+    console.log(allValid)
+    if (!allValid) {
+      let errorMessages = []
+      if (!passwordValidations.minLength)
+        errorMessages.push('au moins 8 caractères')
+      if (!passwordValidations.uppercase) errorMessages.push('une majuscule')
+      if (!passwordValidations.specialChars)
+        errorMessages.push('un caractère spécial')
+      if (!passwordValidations.number) errorMessages.push('un chiffre')
+
+      let errorMessage =
+        'Le mot de passe doit contenir au moins : ' +
+        errorMessages.join(', ') +
+        '.'
+
+      setPasswordError(errorMessage)
+
+      console.log(errorMessages)
+    } else {
+      console.log('Formulaire envoyé avec succès')
+      setIsSubmitted(true)
     }
   }
 
@@ -107,8 +147,9 @@ export const SignUp = () => {
                   label="Nom :"
                   name="name"
                   type="text"
-                  placeholder="Nom ..."
                   maxLength="35"
+                  placeholder="Nom ..."
+                  autoComplete="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   onInvalid={(e) =>
@@ -121,6 +162,7 @@ export const SignUp = () => {
                   name="firstname"
                   type="text"
                   placeholder="Prénom ..."
+                  autoComplete="firstname"
                   maxLength="35"
                   value={formData.firstname}
                   onChange={handleInputChange}
@@ -137,6 +179,7 @@ export const SignUp = () => {
                   name="codePostal"
                   type="text"
                   placeholder="78120"
+                  autoComplete="zipCode"
                   value={formData.codePostal}
                   onChange={handleInputChange}
                   onBlur={handleCodePostalBlur}
@@ -186,6 +229,7 @@ export const SignUp = () => {
                   name="email"
                   type="email"
                   placeholder="john.doe@exemple.fr"
+                  autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   onInvalid={(e) =>
@@ -272,11 +316,15 @@ export const SignUp = () => {
                   type="password"
                   minLength="8"
                   placeholder="mot de passe ..."
+                  autoComplete="new-password"
                   value={formData.password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <StrengthPassword password={password} />
+                {passwordError && (
+                  <div style={{ color: 'red' }}>{passwordError}</div>
+                )}
 
                 <InscriptionForm
                   label="Confirmation Mot de Passe :"
@@ -286,9 +334,16 @@ export const SignUp = () => {
                   type="password"
                   minLength="8"
                   placeholder="confirmation mdp"
+                  autoComplete="new-password"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
+                <div className="recaptcha">
+                  <ReCAPTCHA
+                    sitekey="6LeovCEpAAAAAExOMjAi5j3ar2EP6s6mpEOtrgGt"
+                    onChange={onChange}
+                  />
+                </div>
                 <div className="btn_line">
                   <button className="button_back" onClick={goToPreviousStep}>
                     Retour

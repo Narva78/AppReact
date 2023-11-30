@@ -86,6 +86,12 @@ $labelMarginBottom: -10px;
   }
 }
 
+.recaptcha {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .bg__container__form__step__field {
   margin-bottom: $labelMarginBottom;
   &__label {
