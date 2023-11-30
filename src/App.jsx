@@ -1,24 +1,23 @@
 import './App.scss'
-import ReactDOM from 'react-dom/client'
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import NavBar from './templates/navBar/Navbar'
-import Inscription from './templates/inscription/Inscription'
+import { SignUp } from './templates/inscription/SignUp/SignUp'
 import Home from './templates/home/Home'
-import { Test } from './templates/test/Test'
+import { ProgressBar } from './components/inscription/progressBar/ProgressBar'
+import { StrengthPassword } from './components/inscription/password/StrengthPassword/StrengthPassword'
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="force" element={<StrengthPassword />} />
+        <Route path="progressBar" element={<ProgressBar />} />
         <Route path="NavBar" element={<NavBar />} />
         <Route path="home" element={<Home />} />
-        <Route path="inscription" element={<Inscription />} />
-        <Route path="test" element={<Test />} />
+        <Route path="SignUp" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   )
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App />)

@@ -1,0 +1,99 @@
+$background: #0e101c;
+$buttonBorderRadius: 10px;
+$transitionDuration: 0.35s;
+$buttonHoverBackground: rgba(173, 19, 40, 0.2);
+$buttonBorderColor: #e55743;
+$buttonHoverColor: #ad1328;
+$TextColor: #f9f9f9;
+$labelFontFamily: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+$labelFontSize: 14px;
+$labelMarginBottom: -10px;
+
+.bg {
+  height: 100vh;
+  display: flex;
+  background-color: $background;
+}
+
+.bg__container {
+  width: 350px;
+  margin: 2.5em auto;
+}
+
+.bg__container__h1 {
+  font-weight: 100;
+  color: $TextColor;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(79, 89, 148);
+}
+.bg__container__form {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.bg__container__form__step {
+  flex: 0 0 100%;
+  transition: transform 0.5s ease;
+  transform: translateX(calc(-100% * var(--step-index)));
+}
+
+.bg__container__titleh3 {
+  margin-top: 25px;
+  font-weight: 450;
+  color: #f9f9f9;
+}
+
+.button_next,
+.button_back {
+  width: 100%;
+  padding: 3% 0;
+  border: none;
+  background-color: #ff7f50;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 550;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff6347;
+  }
+}
+
+.button_back {
+  margin-right: 3px;
+}
+
+.button_next {
+  margin-left: 3px;
+}
+
+.btn_line,
+.radio_line {
+  display: flex;
+}
+
+.radio_line {
+  justify-content: center;
+  gap: 50px;
+  @media screen and (max-width: 320px) {
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
+.bg__container__form__step__field {
+  margin-bottom: $labelMarginBottom;
+  &__label {
+    margin-right: $buttonBorderRadius;
+    font-size: $labelFontSize;
+    font-family: $labelFontFamily;
+    color: $TextColor;
+    text-align: left;
+    width: 100%;
+  }
+}

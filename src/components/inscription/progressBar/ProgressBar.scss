@@ -1,0 +1,60 @@
+$progressBarColor: rgb(79, 89, 148);
+$circleSize: 25px;
+$circleFontSize: 17px;
+$circleBorderColor: #e0e0e0;
+$progressBarHeight: 4px;
+$transitionDuration: 400ms;
+$transitionDelay: 200ms;
+$progressBarBackgroundColor: #e0e0e0;
+$circleColor: #999;
+
+.bar {
+  max-width: 400px;
+  width: 100%;
+
+  &__step {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    &__circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: $circleSize;
+      width: $circleSize;
+      color: $circleColor;
+      font-size: $circleFontSize;
+      font-weight: 500;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid $circleBorderColor;
+      transition: all $transitionDuration ease;
+      z-index: 1;
+
+      &.active {
+        transition-delay: $transitionDelay;
+        border-color: $progressBarColor;
+        color: $progressBarColor;
+      }
+    }
+
+    &__progress {
+      position: absolute;
+      height: $progressBarHeight;
+      width: 100%;
+      background: $progressBarBackgroundColor;
+      z-index: 0;
+
+      &__indicator {
+        position: absolute;
+        height: 100%;
+        width: 0%; // Ajuster en fonction de la progression
+        background: $progressBarColor;
+        transition: all $transitionDuration ease;
+      }
+    }
+  }
+}

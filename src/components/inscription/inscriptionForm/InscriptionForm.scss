@@ -1,15 +1,17 @@
-$primaryBorderColor: #fff;
-$primaryFontColor: #f9f9f9;
+$primaryBorderColor: #e4e4e4;
+$primaryFontColor: #333;
+$primaryLabelColor: #f9f9f9;
 $primaryBorderRadius: 5px;
-$inputFontSize: 14px;
-$labelMarginBottom: 10px;
-$inputMarginBottom: 10px;
+$inputFontSize: 16px;
+$labelFontSize: 14px;
+$labelMarginBottom: 5px;
+$inputMarginBottom: 20px;
 $breakpoint: 200px;
+$labelFontFamily: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 .form {
-  background-color: none;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-top: 15px;
 
   &__input {
@@ -20,27 +22,53 @@ $breakpoint: 200px;
     border: 1px solid $primaryBorderColor;
     padding: 10px 15px;
     font-size: $inputFontSize;
+    color: $primaryFontColor;
+
+    &.test {
+      appearance: none;
+      background-image: url('https://s2.svgbox.net/hero-outline.svg?ic=chevron-down&color=000000');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 20px;
+      cursor: pointer;
+      &.open {
+        background-image: url('https://s2.svgbox.net/hero-outline.svg?ic=chevron-up&color=000000');
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
 
     @media screen and (max-width: $breakpoint) {
       width: 100%;
     }
   }
-}
 
-label {
-  color: $primaryFontColor;
-  margin-bottom: $labelMarginBottom;
-}
+  label {
+    font-size: $labelFontSize;
+    font-family: $labelFontFamily;
+    color: $primaryLabelColor;
+    margin-bottom: $labelMarginBottom;
+    text-align: left;
+    width: 100%;
+  }
 
-input[type='radio'] {
-  display: inline-block;
-  width: auto;
-  cursor: pointer;
-  margin-bottom: $inputMarginBottom;
-}
+  input[type='date'] {
+    &::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+    }
+  }
 
-input[type='date'] {
-  &::-webkit-calendar-picker-indicator {
-    cursor: pointer;
+  &__radio {
+    display: flex;
+    align-items: center;
+
+    &-label {
+      margin-top: 7px;
+      font-size: $labelFontSize;
+      font-family: $labelFontFamily;
+      color: $primaryLabelColor;
+    }
   }
 }
