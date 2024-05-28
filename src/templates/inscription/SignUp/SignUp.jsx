@@ -228,7 +228,7 @@ export const SignUp = () => {
                   label="Email :"
                   name="email"
                   type="email"
-                  placeholder="john.doe@exemple.fr"
+                  placeholder="john.doe@example.fr"
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}

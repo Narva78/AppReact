@@ -1,0 +1,176 @@
+// Mobile First
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px); // Effet de flou ! pas compatible avec tout nav
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%);
+      width: 70%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .block-content {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+
+      &__text {
+        margin-bottom: 20px;
+        font-size: 0.7em;
+        max-width: 70%;
+        height: auto;
+        transition: max-height 0.5s ease, opacity 0s ease;
+
+        .text-content {
+          overflow: hidden;
+          max-height: 3.6em; // Correspond à deux lignes de texte
+          transition: max-height 0.6s ease;
+
+          &.expanded {
+            max-height: 1000px; // Valeur suffisamment grande pour tout le contenu
+          }
+
+          &.collapsed {
+            max-height: 3.6em; // Valeur correspondant à la hauteur d'un texte tronqué
+          }
+        }
+
+        h2 {
+          margin-bottom: 15px;
+        }
+
+        &__readMore {
+          background-color: rgba(255, 255, 255, 0);
+          border: none;
+          color: var(--first-color);
+          cursor: pointer;
+          font-size: 0.8em;
+          padding: 0;
+          text-decoration: none;
+          display: inline-block; // Affichage en ligne avec bloc pour permettre les pseudos éléments
+          position: relative;
+          margin-top: 10px;
+
+          // Pseudo-élément pour animation soulignement
+          &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 0.5px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--first-color);
+            visibility: hidden;
+            transform: scaleX(0); // Ligne invisible au départ
+            transition: all 0.3s ease-in-out;
+          }
+
+          // Animation au survol
+          &:hover:before {
+            visibility: visible;
+            transform: scaleX(1);
+          }
+
+          &[aria-expanded='true']::before {
+            transform-origin: right;
+          }
+
+          &[aria-expanded='false']::before {
+            transform-origin: left;
+          }
+        }
+      }
+
+      &__image {
+        img {
+          width: auto;
+          height: auto;
+          object-fit: cover;
+          max-height: 200px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Thèmes pour chaque saison */
+.theme-noel {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.theme-ete {
+  background-color: rgba(255, 255, 0, 0.1);
+}
+
+.theme-printemps {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.theme-automne {
+  background-color: rgba(255, 165, 0, 0.1);
+}
+
+/* écrans plus larges */
+@media screen and (min-width: 768px) {
+  .homepage {
+    .block {
+      margin: auto; // Haut Bas Gauche Droite
+      padding: 20px;
+    }
+
+    .block-content {
+      flex-direction: row !important;
+
+      &__text {
+        flex: 0.7;
+        padding-right: 20px; // Espacement entre le texte et l'image
+        margin-bottom: 0;
+        max-width: 40% !important;
+      }
+
+      &__image {
+        flex: 0.5;
+      }
+    }
+  }
+}
